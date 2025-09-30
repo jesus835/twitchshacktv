@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Twitch Clone - Móvil</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- TT Lakes Neue no está disponible vía Google Fonts; se usa fallback y nombre por si el usuario la instala -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <style>:root{--bg:#0e0e10;--bg-elev:#18181b;--text:#efeff1;--muted:#adadb8;--brand:#9147ff;--brand-press:#772ce8;--surface:#1f1f23;--success:#10b981;--warning:#f59e0b}*{box-sizing:border-box}html,body{height:100%}body{margin:0;background:var(--bg);color:var(--text);font-family:"TT Lakes Neue",Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}.app{height:100dvh;display:flex;flex-direction:column}.content{height:100dvh;display:flex;flex-direction:column;overflow:hidden}.player{position:relative}.video-frame{position:relative;aspect-ratio:16/9;background:#000;overflow:hidden}.video-frame video{width:100%;height:100%;object-fit:cover;display:block;background:#000}.live-badge{position:absolute;top:8px;left:8px;background:#e91916;color:#fff;font-weight:700;font-size:12px;padding:4px 8px;border-radius:4px;z-index:3}.video-overlay{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;pointer-events:none}.top-actions{display:flex;align-items:center;gap:10px;padding:10px;pointer-events:auto}.pill-btn{background:rgba(0,0,0,.6);backdrop-filter:blur(6px);color:#fff;border:none;border-radius:10px;padding:8px 12px;font-weight:700}.icon-btn{width:36px;height:36px;border-radius:8px;border:none;background:transparent;color:#fff;display:flex;align-items:center;justify-content:center;position:relative}
+.volume-icon{width:20px;height:20px;border:2px solid #fff;border-radius:50%;position:relative}
+.volume-icon::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:8px;height:8px;background:#fff;border-radius:50%}
+.volume-icon::after{content:'';position:absolute;top:50%;right:-8px;width:0;height:0;border-left:6px solid #fff;border-top:3px solid transparent;border-bottom:3px solid transparent}.icon-btn:active{transform:scale(.96)}.spacer-fill{flex:1}.play-pause-btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:80px;height:80px;border:none;background:transparent;color:#fff;font-size:48px;cursor:pointer;display:block;transition:all 0.3s ease;pointer-events:auto;z-index:4;opacity:1;text-align:center;line-height:80px;font-weight:bold}.big-play-btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:80px;height:80px;border:none;background:transparent;color:#fff;font-size:32px;cursor:pointer;display:block;transition:all 0.3s ease;pointer-events:auto;z-index:4;opacity:1;text-align:center;line-height:80px;font-weight:bold}.big-play-btn:hover{transform:translate(-50%,-50%) scale(1.1)}.big-play-btn:active{transform:translate(-50%,-50%) scale(0.95)}.bottom-bar{position:absolute;bottom:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:10px;color:#fff;background:linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(0,0,0,.3) 50%,rgba(0,0,0,.8) 100%);pointer-events:auto;z-index:2;transition:opacity 0.3s ease}.left{display:flex;align-items:center;gap:8px}.dot-live{width:8px;height:8px;background:#e91916;border-radius:50%;display:inline-block}.sep{opacity:.6}.right{display:flex;align-items:center;gap:8px}.volume-control{position:relative;display:flex;align-items:center}.volume-slider-container{display:flex;align-items:center;background:rgba(0,0,0,0.8);padding:8px 12px;border-radius:6px;margin-left:8px}.volume-slider{width:80px;height:4px;background:rgba(255,255,255,0.3);border-radius:2px;outline:none;cursor:pointer}.volume-slider::-webkit-slider-thumb{appearance:none;width:16px;height:16px;background:#fff;border-radius:50%;cursor:pointer}.volume-slider::-moz-range-thumb{width:16px;height:16px;background:#fff;border-radius:50%;cursor:pointer;border:none}.quality-select{background:rgba(0,0,0,.6);color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:6px;padding:6px 8px;font-size:12px;outline:none}.quality-select:focus{border-color:#9147ff}.chat-embed{flex:1;min-height:0;padding:6px 12px 12px;background:#18181B}.chat-embed iframe{width:100%;height:100%;border:0;border-radius:10px;background:#18181B}@media (min-width:480px){.content{max-width:480px;margin:0 auto}}</style>
+  </head>
+  <body>
+    <div class="app">
+      <main class="content">
+        <!-- Reproductor / Portada -->
+        <section class="player">
+          <div class="video-frame">
+            <video id="video-player" muted autoplay playsinline>
+              <source src="" type="application/x-mpegURL">
+              Tu navegador no soporta la reproducción de video.
+            </video>
+            <div class="video-overlay">
+              <button class="play-pause-btn" id="play-pause-btn">▶</button>
+            </div>
+            
+            <div class="bottom-bar">
+              <div class="left">
+                <span class="dot-live"></span>
+                <span id="timecode">0:00</span>
+              </div>
+              <div class="right">
+                <div class="volume-control">
+                  <button class="icon-btn" id="volume-btn" aria-label="Volumen">
+                    <div class="volume-icon"></div>
+                  </button>
+                  <div class="volume-slider-container" id="volume-slider-container" style="display: none;">
+                    <input type="range" class="volume-slider" id="volume-slider" min="0" max="100" value="50">
+                  </div>
+                </div>
+                <button class="icon-btn" id="fullscreen-btn" aria-label="Pantalla completa">⛶</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+
+
+        <!-- Chat embebido -->
+        <section class="chat-embed" aria-label="Chat de Twitch">
+          <iframe id="twitch-chat" src="about:blank" title="Twitch Chat" referrerpolicy="no-referrer" allowfullscreen></iframe>
+        </section>
+        <script>(function(){var iframe=document.getElementById('twitch-chat');var host=location.hostname;if(!host){iframe.srcdoc='<div style="display:flex;align-items:center;justify-content:center;height:100%;font-family:Inter,system-ui,sans-serif;color:#eee;background:#0e0e10;text-align:center;padding:24px">Abre este archivo usando un servidor (por ej. http://localhost) para cargar el chat de Twitch.</div>';return;}var parents=['localhost','127.0.0.1',host];var parentParams=parents.map(function(p){return 'parent='+encodeURIComponent(p);}).join('&');iframe.src='https://www.twitch.tv/embed/mrshackz/chat?'+parentParams+'&darkpopout=true&theme=dark';})();</script>
+        
+        <!-- CONTADOR CON HORAS, MINUTOS Y SEGUNDOS -->
+        <script>
+          document.addEventListener('DOMContentLoaded', function() {
+            var segundos = 0;
+            var timecodeEl = document.getElementById('timecode');
+            
+            function actualizar() {
+              var horas = Math.floor(segundos / 3600);
+              var minutos = Math.floor((segundos % 3600) / 60);
+              var segs = segundos % 60;
+              
+              var tiempo = '';
+              if (horas > 0) {
+                tiempo = horas + ':' + (minutos < 10 ? '0' + minutos : minutos) + ':' + (segs < 10 ? '0' + segs : segs);
+              } else {
+                tiempo = minutos + ':' + (segs < 10 ? '0' + segs : segs);
+              }
+              
+              if (timecodeEl) timecodeEl.textContent = tiempo;
+            }
+            
+            setInterval(function() {
+              segundos++;
+              actualizar();
+            }, 1000);
+          });
+        </script>
+        <script>
+          // HLS Player
+          (function(){
+            var video = document.getElementById('video-player');
+            var hlsUrl = 'https://live20.bozztv.com/giatv/giatv-villahermosalive/villahermosalive/chunks.m3u8'; // Stream GiTV
+            var hls = null;
+            
+            if (Hls.isSupported()) {
+              hls = new Hls();
+              hls.loadSource(hlsUrl);
+              hls.attachMedia(video);
+              hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                video.play().catch(function(e) {
+                  console.log('Autoplay bloqueado:', e);
+                });
+              });
+            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+              video.src = hlsUrl;
+              video.addEventListener('loadedmetadata', function() {
+                video.play().catch(function(e) {
+                  console.log('Autoplay bloqueado:', e);
+                });
+              });
+            }
+            
+            // Hacer hls accesible globalmente
+            window.hlsInstance = hls;
+            
+            // Función para cambiar stream
+            window.loadStream = function(url) {
+              if (Hls.isSupported()) {
+                hls.loadSource(url);
+                hls.attachMedia(video);
+              } else {
+                video.src = url;
+              }
+            };
+            
+            // Controles personalizados - solo los que existen
+            var volumeBtn = document.getElementById('volume-btn');
+            var bottomBar = document.querySelector('.bottom-bar');
+            var hideTimer = null;
+            
+            // Función para ocultar toda la barra inferior después de 3 segundos
+            function hideBottomBar() {
+              if (hideTimer) {
+                clearTimeout(hideTimer);
+              }
+              // Solo ocultar si el video está reproduciéndose
+              if (!video.paused) {
+                hideTimer = setTimeout(function() {
+                  bottomBar.style.opacity = '0';
+                  bottomBar.style.pointerEvents = 'none';
+                  if (playPauseBtn) {
+                    playPauseBtn.style.opacity = '0';
+                    playPauseBtn.style.pointerEvents = 'none';
+                  }
+                  // Quitar degradado cuando se oculta la barra
+                  var videoOverlay = document.querySelector('.video-overlay');
+                  if (videoOverlay) {
+                    videoOverlay.style.background = 'none';
+                  }
+                  console.log('Barra y botón ocultos automáticamente');
+                }, 3000);
+              }
+            }
+            
+            // Función para mostrar la barra inferior
+            function showBottomBar() {
+              if (hideTimer) {
+                clearTimeout(hideTimer);
+              }
+              bottomBar.style.opacity = '1';
+              bottomBar.style.pointerEvents = 'auto';
+              if (playPauseBtn) {
+                playPauseBtn.style.opacity = '1';
+                playPauseBtn.style.pointerEvents = 'auto';
+              }
+              // Añadir fondo negro con opacidad cuando se muestra la barra
+              var videoOverlay = document.querySelector('.video-overlay');
+              if (videoOverlay) {
+                videoOverlay.style.background = 'rgba(0,0,0,0.5)';
+              }
+              console.log('Barra y botón mostrados');
+              hideBottomBar(); // Reiniciar temporizador
+            }
+            
+            // Mostrar barra al hacer hover o interactuar
+            video.addEventListener('mouseenter', showBottomBar);
+            video.addEventListener('mousemove', showBottomBar);
+            video.addEventListener('click', showBottomBar);
+            bottomBar.addEventListener('mouseenter', showBottomBar);
+            
+            // Ocultar barra cuando el mouse salga del área
+            video.addEventListener('mouseleave', function() {
+              if (bottomBar.style.pointerEvents !== 'none') {
+                hideBottomBar();
+              }
+            });
+            
+            // Iniciar temporizador al cargar
+            hideBottomBar();
+            
+            if (volumeBtn) {
+              var volumeSlider = document.getElementById('volume-slider');
+              var volumeContainer = document.getElementById('volume-slider-container');
+              
+              // Mostrar/ocultar barra de volumen
+              volumeBtn.addEventListener('click', function() {
+                if (volumeContainer.style.display === 'none') {
+                  volumeContainer.style.display = 'block';
+                } else {
+                  volumeContainer.style.display = 'none';
+                }
+                showBottomBar(); // Mostrar barra al interactuar
+              });
+              
+              // Control de volumen con slider
+              if (volumeSlider) {
+                volumeSlider.addEventListener('input', function() {
+                  video.volume = this.value / 100;
+                  volumeBtn.textContent = this.value > 0 ? '🔊' : '🔇';
+                  showBottomBar(); // Mostrar barra al interactuar
+                });
+                
+                // Click en el botón para mute/unmute
+                volumeBtn.addEventListener('dblclick', function() {
+                  if (video.volume > 0) {
+                    video.volume = 0;
+                    volumeSlider.value = 0;
+                    this.textContent = '🔇';
+                  } else {
+                    video.volume = 0.5;
+                    volumeSlider.value = 50;
+                    this.textContent = '🔊';
+                  }
+                  showBottomBar(); // Mostrar barra al interactuar
+                });
+              }
+            }
+            
+            // Pantalla completa
+            var fullscreenBtn = document.getElementById('fullscreen-btn');
+            if (fullscreenBtn) {
+              fullscreenBtn.addEventListener('click', function() {
+                if (document.fullscreenElement) {
+                  document.exitFullscreen();
+                } else {
+                  document.documentElement.requestFullscreen();
+                }
+              });
+            }
+            
+            // Solo indicador de pausa grande
+            // Botón de play/pause simple
+            var playPauseBtn = document.getElementById('play-pause-btn');
+            
+            if (playPauseBtn) {
+              playPauseBtn.addEventListener('click', function() {
+                if (video.paused) {
+                  video.play();
+                } else {
+                  video.pause();
+                }
+                showBottomBar();
+              });
+              
+              video.addEventListener('play', function() {
+                playPauseBtn.textContent = '❚❚';
+                // Cuando empieza a reproducir, iniciar temporizador para ocultar
+                hideBottomBar();
+              });
+              
+              video.addEventListener('pause', function() {
+                playPauseBtn.textContent = '▶';
+                // Cuando se pausa, cancelar temporizador y mantener visible
+                if (hideTimer) {
+                  clearTimeout(hideTimer);
+                }
+                // Asegurar que esté visible cuando está pausado
+                bottomBar.style.opacity = '1';
+                bottomBar.style.pointerEvents = 'auto';
+                if (playPauseBtn) {
+                  playPauseBtn.style.opacity = '1';
+                  playPauseBtn.style.pointerEvents = 'auto';
+                }
+                // Mantener fondo negro cuando está pausado
+                var videoOverlay = document.querySelector('.video-overlay');
+                if (videoOverlay) {
+                  videoOverlay.style.background = 'rgba(0,0,0,0.5)';
+                }
+              });
+            }
+            
+            
+            // Esta lógica ya está manejada arriba, no necesitamos duplicarla
+            
+            video.addEventListener('volumechange', function() {
+              if (volumeBtn) {
+                var volumeIcon = volumeBtn.querySelector('.volume-icon');
+                if (volumeIcon) {
+                  if (video.volume > 0) {
+                    volumeIcon.style.display = 'block';
+                  } else {
+                    volumeIcon.style.display = 'none';
+                  }
+                }
+              }
+              if (volumeSlider) {
+                volumeSlider.value = video.volume * 100;
+              }
+            });
+          })();
+        </script>
+      </main>
+    </div>
+  </body>
+  </html>
+
+
