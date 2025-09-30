@@ -3,6 +3,9 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Twitch Clone - Móvil</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -53,9 +56,9 @@
 
         <!-- Chat embebido -->
         <section class="chat-embed" aria-label="Chat de Twitch">
-          <iframe id="twitch-chat" src="about:blank" title="Twitch Chat" referrerpolicy="no-referrer" allowfullscreen></iframe>
+          <iframe id="twitch-chat" src="about:blank" title="Twitch Chat" referrerpolicy="no-referrer" allowfullscreen sandbox="allow-same-origin allow-scripts allow-forms allow-popups"></iframe>
         </section>
-        <script>(function(){var iframe=document.getElementById('twitch-chat');var host=location.hostname;if(!host){iframe.srcdoc='<div style="display:flex;align-items:center;justify-content:center;height:100%;font-family:Inter,system-ui,sans-serif;color:#eee;background:#0e0e10;text-align:center;padding:24px">Abre este archivo usando un servidor (por ej. http://localhost) para cargar el chat de Twitch.</div>';return;}var parents=['localhost','127.0.0.1',host];var parentParams=parents.map(function(p){return 'parent='+encodeURIComponent(p);}).join('&');iframe.src='https://www.twitch.tv/embed/mrshackz/chat?'+parentParams+'&darkpopout=true&theme=dark';})();</script>
+        <script>(function(){var iframe=document.getElementById('twitch-chat');var host=location.hostname;if(!host){iframe.srcdoc='<div style="display:flex;align-items:center;justify-content:center;height:100%;font-family:Inter,system-ui,sans-serif;color:#eee;background:#0e0e10;text-align:center;padding:24px">Abre este archivo usando un servidor (por ej. http://localhost) para cargar el chat de Twitch.</div>';return;}var parents=['localhost','127.0.0.1',host];var parentParams=parents.map(function(p){return 'parent='+encodeURIComponent(p);}).join('&');iframe.src='https://www.twitch.tv/embed/mrshackz/chat?'+parentParams+'&darkpopout=true&theme=dark&popout=false&targetOrigin=*&no-mobile-redirect=true&force-mobile=false';})();</script>
         
         <!-- CONTADOR CON HORAS, MINUTOS Y SEGUNDOS -->
         <script>
