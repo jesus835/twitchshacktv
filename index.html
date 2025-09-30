@@ -172,7 +172,13 @@
                 adOverlay.style.display = 'flex';
                 adOverlay.style.pointerEvents = 'auto';
                 
-                console.log('Anuncio mostrado - solo se cierra con X');
+                // Auto-cerrar después de 1 minuto si no se cierra manualmente
+                adTimer = setTimeout(function() {
+                  hideAd();
+                  console.log('Anuncio cerrado automáticamente después de 1 minuto');
+                }, 60000); // 1 minuto en milisegundos
+                
+                console.log('Anuncio mostrado - se cierra con X o en 1 minuto');
               }
             }
             
@@ -182,7 +188,13 @@
                 adOverlay.style.display = 'none';
                 adOverlay.style.pointerEvents = 'none';
                 
-                console.log('Anuncio cerrado por el usuario');
+                // Limpiar timer si existe
+                if (adTimer) {
+                  clearTimeout(adTimer);
+                  adTimer = null;
+                }
+                
+                console.log('Anuncio cerrado');
               }
             }
             
