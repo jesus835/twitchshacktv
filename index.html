@@ -16,7 +16,7 @@
     <style>:root{--bg:#0e0e10;--bg-elev:#18181b;--text:#efeff1;--muted:#adadb8;--brand:#9147ff;--brand-press:#772ce8;--surface:#1f1f23;--success:#10b981;--warning:#f59e0b}*{box-sizing:border-box}html,body{height:100%}body{margin:0;background:var(--bg);color:var(--text);font-family:"TT Lakes Neue",Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}.app{height:100dvh;display:flex;flex-direction:column;position:fixed;top:0;left:0;right:0;bottom:0}.content{height:100dvh;display:flex;flex-direction:column;overflow:hidden;position:relative}.player{position:relative}.video-frame{position:relative;aspect-ratio:16/9;background:#000;overflow:hidden}.video-frame:fullscreen{width:100vw;height:100vh;aspect-ratio:unset;display:flex;align-items:center;justify-content:center;background:#000}.video-frame:fullscreen video{width:100%;height:100%;object-fit:contain}@media screen and (orientation: portrait) and (max-width: 768px){.video-frame:fullscreen{transform:rotate(90deg);transform-origin:center;width:100vh;height:100vw;position:fixed;top:50%;left:50%;margin-top:-50vw;margin-left:-50vh}}.video-frame video{width:100%;height:100%;object-fit:cover;display:block;background:#000}.live-badge{position:absolute;top:8px;left:8px;background:#e91916;color:#fff;font-weight:700;font-size:12px;padding:4px 8px;border-radius:4px;z-index:3}.video-overlay{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;pointer-events:none}.top-actions{display:flex;align-items:center;gap:10px;padding:10px;pointer-events:auto}.pill-btn{background:rgba(0,0,0,.6);backdrop-filter:blur(6px);color:#fff;border:none;border-radius:10px;padding:8px 12px;font-weight:700}.icon-btn{width:36px;height:36px;border-radius:8px;border:none;background:transparent;color:#fff;display:flex;align-items:center;justify-content:center;position:relative}
 .volume-icon{width:20px;height:20px;border:2px solid #fff;border-radius:50%;position:relative}
 .volume-icon::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:8px;height:8px;background:#fff;border-radius:50%}
-.volume-icon::after{content:'';position:absolute;top:50%;right:-8px;width:0;height:0;border-left:6px solid #fff;border-top:3px solid transparent;border-bottom:3px solid transparent}.icon-btn:active{transform:scale(.96)}.spacer-fill{flex:1}.play-pause-btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:80px;height:80px;border:none;background:transparent;color:#fff;font-size:48px;cursor:pointer;display:block;transition:all 0.3s ease;pointer-events:auto;z-index:4;opacity:1;text-align:center;line-height:80px;font-weight:bold}.big-play-btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:80px;height:80px;border:none;background:transparent;color:#fff;font-size:32px;cursor:pointer;display:block;transition:all 0.3s ease;pointer-events:auto;z-index:4;opacity:1;text-align:center;line-height:80px;font-weight:bold}.big-play-btn:hover{transform:translate(-50%,-50%) scale(1.1)}.big-play-btn:active{transform:translate(-50%,-50%) scale(0.95)}.bottom-bar{position:absolute;bottom:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:10px;color:#fff;background:linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(0,0,0,.3) 50%,rgba(0,0,0,.8) 100%);pointer-events:auto;z-index:2;transition:opacity 0.3s ease}.left{display:flex;align-items:center;gap:8px}.dot-live{width:8px;height:8px;background:#e91916;border-radius:50%;display:inline-block}.sep{opacity:.6}.right{display:flex;align-items:center;gap:8px}.volume-control{position:relative;display:flex;align-items:center}.volume-slider-container{display:flex;align-items:center;background:rgba(0,0,0,0.8);padding:8px 12px;border-radius:6px;margin-left:8px}.volume-slider{width:80px;height:4px;background:rgba(255,255,255,0.3);border-radius:2px;outline:none;cursor:pointer}.volume-slider::-webkit-slider-thumb{appearance:none;width:16px;height:16px;background:#fff;border-radius:50%;cursor:pointer}.volume-slider::-moz-range-thumb{width:16px;height:16px;background:#fff;border-radius:50%;cursor:pointer;border:none}.quality-select{background:rgba(0,0,0,.6);color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:6px;padding:6px 8px;font-size:12px;outline:none}.quality-select:focus{border-color:#9147ff}.chat-embed{flex:1;min-height:0;padding:6px 12px 12px;background:#18181B;overflow-y:auto;position:relative}.chat-embed iframe{width:100%;height:100%;border:0;border-radius:10px;background:#18181B;position:absolute;top:0;left:0;right:0;bottom:0}@media (min-width:480px){.content{max-width:480px;margin:0 auto}}</style>
+.volume-icon::after{content:'';position:absolute;top:50%;right:-8px;width:0;height:0;border-left:6px solid #fff;border-top:3px solid transparent;border-bottom:3px solid transparent}.icon-btn:active{transform:scale(.96)}.spacer-fill{flex:1}.play-pause-btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:80px;height:80px;border:none;background:transparent;color:#fff;font-size:48px;cursor:pointer;display:block;transition:all 0.3s ease;pointer-events:auto;z-index:4;opacity:1;text-align:center;line-height:80px;font-weight:bold}.ad-overlay{position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.9);display:flex;align-items:center;justify-content:center;z-index:10;backdrop-filter:blur(5px)}.ad-content{position:relative;width:95%;max-width:500px;height:85%;max-height:400px;background:#fff;border-radius:15px;overflow:hidden;box-shadow:0 15px 40px rgba(0,0,0,0.6);border:2px solid rgba(255,255,255,0.1)}.ad-close{position:absolute;top:10px;right:15px;background:rgba(0,0,0,0.7);color:#fff;border:none;border-radius:50%;width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;font-weight:bold;z-index:11;transition:background 0.2s ease}.ad-close:hover{background:rgba(0,0,0,0.9)}.ad-content iframe{width:100%;height:100%;border:0}.big-play-btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:80px;height:80px;border:none;background:transparent;color:#fff;font-size:32px;cursor:pointer;display:block;transition:all 0.3s ease;pointer-events:auto;z-index:4;opacity:1;text-align:center;line-height:80px;font-weight:bold}.big-play-btn:hover{transform:translate(-50%,-50%) scale(1.1)}.big-play-btn:active{transform:translate(-50%,-50%) scale(0.95)}.bottom-bar{position:absolute;bottom:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:10px;color:#fff;background:linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(0,0,0,.3) 50%,rgba(0,0,0,.8) 100%);pointer-events:auto;z-index:2;transition:opacity 0.3s ease}.left{display:flex;align-items:center;gap:8px}.dot-live{width:8px;height:8px;background:#e91916;border-radius:50%;display:inline-block}.sep{opacity:.6}.right{display:flex;align-items:center;gap:8px}.volume-control{position:relative;display:flex;align-items:center}.volume-slider-container{display:flex;align-items:center;background:rgba(0,0,0,0.8);padding:8px 12px;border-radius:6px;margin-left:8px}.volume-slider{width:80px;height:4px;background:rgba(255,255,255,0.3);border-radius:2px;outline:none;cursor:pointer}.volume-slider::-webkit-slider-thumb{appearance:none;width:16px;height:16px;background:#fff;border-radius:50%;cursor:pointer}.volume-slider::-moz-range-thumb{width:16px;height:16px;background:#fff;border-radius:50%;cursor:pointer;border:none}.quality-select{background:rgba(0,0,0,.6);color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:6px;padding:6px 8px;font-size:12px;outline:none}.quality-select:focus{border-color:#9147ff}.chat-embed{flex:1;min-height:0;padding:6px 12px 12px;background:#18181B;overflow-y:auto;position:relative}.chat-embed iframe{width:100%;height:100%;border:0;border-radius:10px;background:#18181B;position:absolute;top:0;left:0;right:0;bottom:0}@media (max-width:768px){.ad-content{width:98%;max-width:none;height:90%;max-height:350px;border-radius:10px}}@media (max-width:480px){.ad-content{width:100%;height:95%;max-height:300px;border-radius:8px;margin:10px}.ad-close{top:5px;right:10px;width:25px;height:25px;font-size:16px}}@media (min-width:480px){.content{max-width:480px;margin:0 auto}}</style>
   </head>
   <body>
     <div class="app">
@@ -30,6 +30,13 @@
             </video>
             <div class="video-overlay">
               <button class="play-pause-btn" id="play-pause-btn">▶</button>
+              <!-- Overlay de anuncios -->
+              <div class="ad-overlay" id="ad-overlay" style="display: none;">
+                <div class="ad-content">
+                  <div class="ad-close" id="ad-close">×</div>
+                  <iframe src="https://www.revenuecpmgate.com/mr0r2hndg?key=78bccdf65220327356e33416cb3393eb" frameborder="0" scrolling="no"></iframe>
+                </div>
+              </div>
             </div>
             
             <div class="bottom-bar">
@@ -151,6 +158,58 @@
             
             // Inicializar manejo del teclado virtual
             handleVirtualKeyboard();
+            
+            // Sistema de anuncios
+            var adOverlay = document.getElementById('ad-overlay');
+            var adClose = document.getElementById('ad-close');
+            var adTimer = null;
+            var adInterval = null;
+            var adStartTime = Date.now();
+            
+            // Función para mostrar anuncio
+            function showAd() {
+              if (adOverlay) {
+                adOverlay.style.display = 'flex';
+                adOverlay.style.pointerEvents = 'auto';
+                
+                console.log('Anuncio mostrado - solo se cierra con X');
+              }
+            }
+            
+            // Función para ocultar anuncio
+            function hideAd() {
+              if (adOverlay) {
+                adOverlay.style.display = 'none';
+                adOverlay.style.pointerEvents = 'none';
+                
+                console.log('Anuncio cerrado por el usuario');
+              }
+            }
+            
+            // Botón de cerrar anuncio
+            if (adClose) {
+              adClose.addEventListener('click', function() {
+                hideAd();
+              });
+            }
+            
+            // Iniciar sistema de anuncios cada 8 minutos
+            function startAdSystem() {
+              // Mostrar primer anuncio después de 8 minutos
+              adInterval = setInterval(function() {
+                showAd();
+              }, 8 * 60 * 1000); // 8 minutos en milisegundos
+              
+              console.log('Sistema de anuncios iniciado - cada 8 minutos');
+            }
+            
+            // Iniciar sistema de anuncios
+            startAdSystem();
+            
+            // Mostrar anuncio inmediatamente para prueba
+            setTimeout(function() {
+              showAd();
+            }, 2000); // Mostrar después de 2 segundos
             
             // Función para cambiar stream
             window.loadStream = function(url) {
