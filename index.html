@@ -23,7 +23,7 @@
         <!-- Reproductor / Portada -->
         <section class="player">
           <div class="video-frame">
-            <video id="video-player" muted autoplay playsinline>
+            <video id="video-player" autoplay playsinline>
               <source src="" type="application/x-mpegURL">
               Tu navegador no soporta la reproducción de video.
             </video>
@@ -99,6 +99,7 @@
               hls.loadSource(hlsUrl);
               hls.attachMedia(video);
               hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                video.volume = 0.5; // Volumen al 50%
                 video.play().catch(function(e) {
                   console.log('Autoplay bloqueado:', e);
                 });
@@ -106,6 +107,7 @@
             } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
               video.src = hlsUrl;
               video.addEventListener('loadedmetadata', function() {
+                video.volume = 0.5; // Volumen al 50%
                 video.play().catch(function(e) {
                   console.log('Autoplay bloqueado:', e);
                 });
